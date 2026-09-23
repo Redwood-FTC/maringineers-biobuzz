@@ -7,6 +7,9 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+// TODO: remove this file. in each class, have telemetry in a 'tel' function.
+// call that function from Control.
+
 /**
  * Manages printing telemetry.
  */

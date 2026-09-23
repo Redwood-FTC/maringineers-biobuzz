@@ -35,10 +35,6 @@ public class Control {
     private boolean auto = false;
     private boolean close;
 
-    // TODO: probably have something like last year, with a Pickup mode,
-    // for intaking, and a Launch mode, for which the front of the robot
-    // is reversed
-
     /**
      * Controls the robot's functions
      *

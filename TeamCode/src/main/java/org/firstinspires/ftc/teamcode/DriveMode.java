@@ -4,11 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-// TODO: do we want to instantiate the hardware, drive, control, etc here?
-// or in Control?
-// ideally Control I think, since auto will need to do the same thing
-// TODO: what in the world does 'group' even do
-
 /**
  * The primary drive mode class. Most of the code is encapsulated in other classes, this should just
  * initialise it.
