@@ -11,6 +11,9 @@ public class Layout {
     private Gamepad gamepad1;
     private Gamepad gamepad2;
 
+    // TODO: if we have a fancy control scheme, multiple modes etc.,
+    // ENCAPSULATE THAT HERE, don't stick that in Control or whatever
+
     /**
      * Initialises the OpMode and gamepad objects.
      *
@@ -22,142 +25,7 @@ public class Layout {
         gamepad2 = opMode.gamepad2;
     }
 
-    /**
-     * Spin the belt for a quarter second.
-     *
-     * @return whether or not dpad right is pressed
-     */
-    public boolean shortSpinBelt() {
-        return gamepad1.dpad_right;
-    }
-
-    /**
-     * Launch the ball low
-     *
-     * @return whether or not dpad left is pressed
-     */
-    public boolean launchLow() {
-        return gamepad1.dpad_left;
-    }
-
-    /**
-     * Drive to launch position
-     *
-     * @return Whether or not left bumper is pressed
-     */
-    public boolean aim() {
-        return gamepad1.left_bumper;
-    }
-
-    /**
-     * Launch the ball
-     *
-     * @return whether or not right bumper is pressed
-     */
-    public boolean fire() {
-        return gamepad1.right_bumper;
-    }
-
-    /**
-     * Intake the ball
-     *
-     * @return whether or not b is pressed
-     */
-    public boolean launchReverse() {
-        return gamepad1.b;
-    }
-
-    /**
-     * Sets launch power
-     *
-     * @return the negative value of right stick x
-     */
-    public double launchPower() {
-        return -gamepad1.right_stick_x;
-    }
-
-    /**
-     * Change the front to the front of the robot
-     *
-     * @return whether or not x is pressed
-     */
-    public boolean frontFront() {
-        return gamepad1.x;
-    }
-
-    /**
-     * Change the front to the back of the robot
-     *
-     * @return whether or not y is pressed
-     */
-    public boolean frontBack() {
-        return gamepad1.y;
-    }
-
-    /**
-     * Move the intake forward.
-     *
-     * @return whether or not dpad up is pressed
-     */
-    public boolean intakeForward() {
-        return gamepad1.dpad_up;
-    }
-
-    /**
-     * Move the intake backward
-     *
-     * @return whether or not dpad down is pressed
-     */
-    public boolean intakeBackward() {
-        return gamepad1.dpad_down;
-    }
-
-    /**
-     * Stop the intake
-     *
-     * @return whether or not a is pressed
-     */
-    public boolean intakeStop() {
-        return gamepad1.a;
-    }
-
-    /**
-     * Set the belt power
-     *
-     * @return the reversed y value of the right joystick
-     */
-    public double beltPower() {
-        return -gamepad1.right_stick_y;
-    }
-
-    /**
-     * Increase the menu by one
-     *
-     * @return whether or not dpad up is pressed
-     */
-    public boolean menuUp() {
-        return gamepad1.dpad_up;
-    }
-
-    /**
-     * Decrease by menu by one
-     *
-     * @return whether or not dpad down is pressed
-     */
-    public boolean menuDown() {
-        return gamepad1.dpad_down;
-    }
-
-    /**
-     * Not sure what this does
-     *
-     * @return whether or not a is pressed
-     */
-    public boolean menuSelect() {
-        return gamepad1.a;
-    }
-
-    // TODO: tune this, so it feels better
+    // TODO: tune this, if necesssary, so it feels better
 
     /**
      * Controls driving the robot forward/back.

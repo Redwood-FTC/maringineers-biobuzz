@@ -24,16 +24,18 @@ public class Control {
     private Tel tel;
     private OpMode opMode;
     private Limelight limelight;
-    private Launch launch;
-    private Belt belt;
-
-    private Menu menu;
 
     private TelemetryManager telemetryM;
 
+    // enabled once the robot mode has been started --- ie., don't do anything
+    // of import until then
     private boolean started = false;
+
+    // used in determining whether to run the tele or auto procedure
     private boolean auto = false;
-    private boolean close;
+
+    // once the control hub stops the robot
+    private boolean stopped = false;
 
     /**
      * Controls the robot's functions
@@ -42,15 +44,14 @@ public class Control {
      */
     public Control(OpMode opMode) {
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
+
         this.opMode = opMode;
+
         layout = new Layout(opMode);
         hardware = new Hardware(opMode);
         tel = new Tel(opMode, hardware);
-        belt = new Belt(opMode, hardware, layout);
         limelight = new Limelight(opMode, hardware, telemetryM);
         drive = new Drive(opMode, hardware, layout, limelight);
-        launch = new Launch(opMode, hardware, layout, drive, belt, telemetryM);
-
 
         update();
     }
@@ -65,72 +66,39 @@ public class Control {
     /**
      * Sets runAuto to true and runMenu to false
      */
-    private boolean red;
-    public void setAuto(boolean close, boolean red) {
+    public void setAuto() {
         auto = true;
-        this.close = close;
-        this.red = red;
     }
 
     /**
      * Stops the robot
      */
     public void stop() {
+        stopped = true;
+    }
+
+    // encapsulates any procedures that should be run when the robot is stopped
+    private void stopped() {
         drive.stopRobot();
     }
 
-    /**
-     * Temporary dead reckoning algorithm to position and launch three balls
-     */
-    private double timeSpinStart = -1;
-    private double speed = .6;
     private void runAuto() {
-        if (!drive.driveAway(close)) {
-            return;
-        }
-
-        if (!close) {
-            if (!drive.aimTarget(red)) {
-              return;
-            }
-
-            // stop();
-            // return;
-        }
-
-        launch.spinSlower();
-        stop();
-
-        if (timeSpinStart == -1) {
-          timeSpinStart = opMode.time;
-        }
-
-        if (opMode.time - timeSpinStart < 1.5) {
-          return;
-        }
-
-        if (opMode.time - timeSpinStart > 7) {
-            speed = .8;
-        }
-
-        if (Math.floor(opMode.time) % 4 == 0) {
-            belt.run(-.6);
-        } else {
-            belt.run(.6);
-        }
-
-
-        stop();
     }
 
     /**
      * Updates drive, telemetry, and the limelight.
      */
     public void update() {
-        if (started && auto) {
-            runAuto();
-        } else if (started) {
-            run();
+        if (started) {
+            if (auto) {
+                runAuto();
+            } else {
+                runTele();
+            }
+        }
+
+        if (stopped) {
+            stopped();
         }
 
         opMode.telemetry.addLine("running");
@@ -168,10 +136,7 @@ public class Control {
     /**
      * Runs the robot functions
      */
-    private void run() {
+    private void runTele() {
         drive.gamepadDrive();
-
-        launch.runGamepad();
-        belt.runGamepad();
     }
 }

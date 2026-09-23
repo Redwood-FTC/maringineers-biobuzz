@@ -32,16 +32,6 @@ public class Hardware {
     public DcMotorEx rightFrontDriveMotor;
     public DcMotorEx rightRearDriveMotor;
 
-    public DcMotorEx leftLaunchMotor;
-    public DcMotorEx rightLaunchMotor;
-
-    public DcMotorEx beltMotor;
-
-    public Servo intakeServo;
-
-    // actually leds
-    public DigitalChannel canShootLed;
-
     public Limelight3A limelight;
 
     /**
@@ -69,9 +59,6 @@ public class Hardware {
     }
 
     private void initDigitalDevices() {
-        canShootLed = opMode.hardwareMap.get(DigitalChannel.class, "canShootLed");
-        canShootLed.setMode(DigitalChannel.Mode.OUTPUT);
-        canShootLed.setState(false);
     }
 
     /**
@@ -95,30 +82,27 @@ public class Hardware {
      * Initialises the motors.
      */
     private void initMotors() {
+        // keep empty loops; they exist for posterity for easy changing of
+        // settings
         leftFrontDriveMotor = opMode.hardwareMap.get(DcMotorEx.class, "leftFrontDriveMotor");
         leftRearDriveMotor = opMode.hardwareMap.get(DcMotorEx.class, "leftRearDriveMotor");
         rightFrontDriveMotor = opMode.hardwareMap.get(DcMotorEx.class, "rightFrontDriveMotor");
         rightRearDriveMotor = opMode.hardwareMap.get(DcMotorEx.class, "rightRearDriveMotor");
 
-        leftLaunchMotor = opMode.hardwareMap.get(DcMotorEx.class, "leftLaunchMotor");
-        rightLaunchMotor = opMode.hardwareMap.get(DcMotorEx.class, "rightLaunchMotor");
-
-        beltMotor = opMode.hardwareMap.get(DcMotorEx.class, "beltMotor");
-
         // each side is flipped in comparison to the other, so set the right side to reverse
         // TODO: determine what we want for this
-        for (DcMotorEx motor : new DcMotorEx[]{rightRearDriveMotor, rightFrontDriveMotor, leftFrontDriveMotor, rightLaunchMotor}) {
+        for (DcMotorEx motor : new DcMotorEx[]{rightRearDriveMotor, rightFrontDriveMotor, leftFrontDriveMotor}) {
             motor.setDirection(DcMotorSimple.Direction.FORWARD);
         }
-        for (DcMotorEx motor : new DcMotorEx[]{leftLaunchMotor, leftRearDriveMotor, beltMotor}) {
+        for (DcMotorEx motor : new DcMotorEx[]{leftRearDriveMotor}) {
             motor.setDirection(DcMotorSimple.Direction.REVERSE);
         }
 
         for (DcMotorEx motor : new DcMotorEx[]{leftFrontDriveMotor, leftRearDriveMotor, rightFrontDriveMotor,
-                rightRearDriveMotor, beltMotor}) {
+                rightRearDriveMotor}) {
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
-        for (DcMotorEx motor : new DcMotorEx[]{leftLaunchMotor, rightLaunchMotor}) {
+        for (DcMotorEx motor : new DcMotorEx[]{}) {
             // temporary, for debugging position
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         }
@@ -128,9 +112,7 @@ public class Hardware {
         //     motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // }
         for (DcMotorEx motor : new DcMotorEx[]{leftFrontDriveMotor, leftRearDriveMotor,
-                leftLaunchMotor, rightLaunchMotor,
-                rightFrontDriveMotor, rightRearDriveMotor,
-                beltMotor}) {
+                rightFrontDriveMotor, rightRearDriveMotor}) {
             motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
         for (DcMotorEx motor : new DcMotorEx[]{}) {
