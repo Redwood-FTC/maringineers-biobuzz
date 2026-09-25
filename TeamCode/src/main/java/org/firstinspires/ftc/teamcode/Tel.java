@@ -38,19 +38,9 @@ public class Tel {
         this.telemetry = opMode.telemetry;
     }
 
-    /**
-     * For when it's necessary to print stuff that depends on control flow
-     * etc (which would ideally be temporary during troubleshooting).
-     * ALTERNATIVELY: expose a function for the caller to add a line, that
-     * we then actually pass to Telemetry - though, them calling it
-     * is probably fine, as long as this.update() is always called
-     * after everything else in the main loop.
-     */
     public Telemetry telemetry() {
         return telemetry;
     }
-
-    // TODO: we'll be using panels for this, so just set up this with panels
 
     /**
      * Updates telemetry.
