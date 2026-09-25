@@ -77,7 +77,7 @@ public class Control {
         stopped = true;
     }
 
-    // encapsulates any procedures that should be run when the robot is stopped
+    // schedule that continuously runs while the robot is stopped
     private void stopped() {
         drive.stopRobot();
     }

@@ -17,7 +17,7 @@ public class RedAutonomous extends OpMode {
      */
     public void init() {
         control = new Control(this);
-        control.setAuto(true, false);
+        control.setAuto();
     }
 
     /**
