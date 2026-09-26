@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-// Reed said launch speed should be .5, go to midfield and launch from there
-
 /**
  * Manages the robot's autonomous.
  */

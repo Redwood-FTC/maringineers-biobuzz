@@ -51,13 +51,6 @@ public class Layout {
      * things on one joystick.
      */
     public double driveYawAmount() {
-        // not a huge difference, but this version feels nice
         return gamepad1.left_trigger - gamepad1.right_trigger;
-        // return -Math.pow(gamepad1.right_stick_x, 3);
-
-        // double leftTrigger = gamepad1.left_trigger;
-        // double rightTrigger = gamepad1.right_trigger;
-        // // manual abs cause rightTrigger has to be negative
-        // return leftTrigger > rightTrigger ? leftTrigger : -rightTrigger;
     }
 }

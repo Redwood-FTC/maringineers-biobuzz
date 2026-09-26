@@ -64,13 +64,8 @@ public class Drive {
         // follower.setTeleOpDrive(0, 0, 0, true);
     }
 
-    // public void setDrive(double x, double y, double yaw) {
-    //     // follower.setTeleOpDrive(x, y, yaw, true);
-    // }
-
-    // private boolean aiming = false;
-
     private boolean aimed = false;
+
     public boolean aimTarget(boolean red) {
         opMode.telemetry.addLine("aiming");
         if (aimed) {
@@ -124,6 +119,7 @@ public class Drive {
     }
 
     private double driveAwayTimeStarted = -1;
+
     public boolean driveAway(boolean close) {
         if (driveAwayTimeStarted == -1) {
             driveAwayTimeStarted = opMode.time;
@@ -150,6 +146,7 @@ public class Drive {
     }
 
     /**
+     * TODO: if this is really deprecated, we should get rid of its usages
      * DEPRECATED -
      * Moves the robot based on controller input.
      *
@@ -200,6 +197,7 @@ public class Drive {
     }
 
     /**
+     * TODO: if this is really deprecated, we should get rid of its usages
      * DEPRECATED -
      * Controls the power each wheel has.
      *

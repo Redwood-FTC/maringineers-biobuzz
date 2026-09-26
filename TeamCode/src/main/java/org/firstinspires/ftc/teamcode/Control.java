@@ -27,8 +27,7 @@ public class Control {
 
     private TelemetryManager telemetryM;
 
-    // enabled once the robot mode has been started --- ie., don't do anything
-    // of import until then
+    // Enabled once the robot mode has been started --- i.e. don't do anything until then
     private boolean started = false;
 
     // used in determining whether to run the tele or auto procedure
@@ -77,7 +76,7 @@ public class Control {
         stopped = true;
     }
 
-    // schedule that continuously runs while the robot is stopped
+    // Schedule that continuously runs while the robot is stopped
     private void stopped() {
         drive.stopRobot();
     }
