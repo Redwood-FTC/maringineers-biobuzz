@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import static org.firstinspires.ftc.teamcode.Control.Colour;
+import static org.firstinspires.ftc.teamcode.Control.Mode;
 /**
  * Manages the robot's autonomous.
  */
@@ -14,8 +16,7 @@ public class RedAutonomous extends OpMode {
      * Initialises the control object.
      */
     public void init() {
-        control = new Control(this);
-        control.setAuto();
+        control = new Control(this, Mode.AUTO, Colour.RED);
     }
 
     /**

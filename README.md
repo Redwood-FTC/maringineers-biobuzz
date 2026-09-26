@@ -1,5 +1,5 @@
-Code for the Maringineers #25830 team in the FTC 2025-2026 season, DECODE.
+Code for the Maringineers #25830 team in the FTC 2026-2027 season, BIOBUZZ.
 
-Coded by Iris Teyssier, Milo Lee, Ayansh Singh, and Rohan Nagashetti.
+Programmed by Iris Teyssier, Milo Lee, and Ayansh Singh.
 
 See src symlink for the source directory. The real readme is at src/readme.md.

@@ -4,18 +4,21 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import static org.firstinspires.ftc.teamcode.Control.Colour;
+import static org.firstinspires.ftc.teamcode.Control.Mode;
+
 /**
  * The primary drive mode class. Most of the code is encapsulated in other classes, this should just
  * initialise it.
  */
-@TeleOp(name = "Drive Mode", group = "Drive")
-public class DriveMode extends OpMode {
+@TeleOp(name = "Red Drive Mode", group = "Drive")
+public class RedDriveMode extends OpMode {
     private Control control;
 
     // if runInit is the run for init mode, and initrun is the init for
     // run mode, then initinit is the init for init mode
     public void init() {
-        control = new Control(this);
+        control = new Control(this, Mode.TELE, Colour.RED);
     }
 
     /**

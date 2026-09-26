@@ -102,11 +102,13 @@ public class Drive {
      * Sets TeleOP drive
      */
     public void gamepadDrive() {
-        if (layout.frontFront()) {
-            swapFront = 1;
-        } else if (layout.frontBack()) {
-            swapFront = -1;
-        }
+        // currently deprecated, but leaving since making a double sided
+        // control scheme is very likely
+        // if (layout.frontFront()) {
+        //     swapFront = 1;
+        // } else if (layout.frontBack()) {
+        //     swapFront = -1;
+        // }
 
         // TODO: move drivepower and swapfront to moveRobot
 

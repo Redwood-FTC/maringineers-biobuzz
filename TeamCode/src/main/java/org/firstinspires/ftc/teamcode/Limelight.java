@@ -9,6 +9,9 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 
+import static org.firstinspires.ftc.teamcode.Control.Colour;
+import static org.firstinspires.ftc.teamcode.Control.Mode;
+
 /**
  * Controls the limelight.
  */
@@ -41,7 +44,7 @@ public class Limelight {
      * Updates the valid result based on what the limelight last saw. If it's valid, set the Pose3D
      * pose and debug telemetry. If it's not, send 'no pose' to telemetry.
      */
-    public void update(boolean red) {
+    public void update(Colour colour) {
         opMode.telemetry.addLine("updating limelight");
         LLResult result = hardware.limelight.getLatestResult();
         if (result != null && result.isValid()) {
@@ -67,9 +70,9 @@ public class Limelight {
             for (int i = 0; i < result.getFiducialResults().size(); ++i) {
                 LLResultTypes.FiducialResult target = result.getFiducialResults().get(i);
                 // red 24, blue 20
-                opMode.telemetry.addData("limelight red: ", red);
+                opMode.telemetry.addData("limelight colour: ", colour);
                 opMode.telemetry.addData("found id: ", target.getFiducialId());
-                int id = red ? 24 : 20;
+                int id = colour == Colour.RED ? 24 : 20;
                 if (target.getFiducialId() != id) {
                     opMode.telemetry.addLine("found non-target apriltag");
                     continue;
@@ -102,12 +105,12 @@ public class Limelight {
                 // if we're far, use another
 
                 // TODO: get the led working
-                hardware.canShootLed.setState(false);
+                // hardware.canShootLed.setState(false);
                 // hardware.canShootLedServo.setPower(0);
                 // hardware.canShootLedServo.setPosition(1.0);
             } else {
                 telemetryM.debug("can't shoot");
-                hardware.canShootLed.setState(true);
+                // hardware.canShootLed.setState(true);
                 // hardware.canShootLED.enable(false);
                 // hardware.canShootLedServo.setPower(0);
                 // hardware.canShootLedServo.setPosition(0.5);

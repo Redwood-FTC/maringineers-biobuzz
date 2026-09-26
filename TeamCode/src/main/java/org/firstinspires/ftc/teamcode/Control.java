@@ -24,33 +24,51 @@ public class Control {
     private Tel tel;
     private OpMode opMode;
     private Limelight limelight;
+    private Pathing pathing;
 
     private TelemetryManager telemetryM;
 
-    // Enabled once the robot mode has been started --- i.e. don't do anything until then
+    public enum Colour {
+        RED,
+        BLUE,
+    }
+
+    public enum Mode {
+        TELE,
+        AUTO,
+    }
+
+    // enabled once the robot mode has been started --- ie., don't do anything
+    // of import until then
     private boolean started = false;
 
     // used in determining whether to run the tele or auto procedure
-    private boolean auto = false;
+    private Mode mode;
 
     // once the control hub stops the robot
     private boolean stopped = false;
+
+    private Colour colour;
 
     /**
      * Controls the robot's functions
      *
      * @param opMode the OpMode object
      */
-    public Control(OpMode opMode) {
+    public Control(OpMode opMode, Mode mode, Colour colour) {
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
 
         this.opMode = opMode;
+
+        this.mode = mode;
+        this.colour = colour;
 
         layout = new Layout(opMode);
         hardware = new Hardware(opMode);
         tel = new Tel(opMode, hardware);
         limelight = new Limelight(opMode, hardware, telemetryM);
         drive = new Drive(opMode, hardware, layout, limelight);
+        pathing = new Pathing(opMode, hardware);
 
         update();
     }
@@ -63,14 +81,7 @@ public class Control {
     }
 
     /**
-     * Sets runAuto to true and runMenu to false
-     */
-    public void setAuto() {
-        auto = true;
-    }
-
-    /**
-     * Stops the robot
+     * enables stopped state, actual changes happen in Update schedule
      */
     public void stop() {
         stopped = true;
@@ -89,7 +100,16 @@ public class Control {
      */
     public void update() {
         if (started) {
-            if (auto) {
+            switch (mode) {
+                case TELE:
+                runTele();
+                break;
+
+                case AUTO:
+                runAuto();
+                break;
+            }
+            if (mode == Mode.AUTO) {
                 runAuto();
             } else {
                 runTele();
@@ -128,7 +148,7 @@ public class Control {
 
         telemetryM.update();
         tel.update();
-        limelight.update(red);
+        limelight.update(colour);
         drive.update();
     }
 
@@ -137,5 +157,18 @@ public class Control {
      */
     private void runTele() {
         drive.gamepadDrive();
+        pathing.update();
+
+        // // specific buttons don't matter
+        // if (layout.advance()) {
+        //     // run advance servos
+        //     launch.run_advance();
+        // }
+        // if (layout.launch()) {
+        //     // run flywheel, just at a given power
+        //     launch.run_flywheel();
+        // }
+        // launch.runGamepad();
+        
     }
 }
