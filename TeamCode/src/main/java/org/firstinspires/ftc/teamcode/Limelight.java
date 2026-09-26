@@ -40,6 +40,7 @@ public class Limelight {
     }
 
     LLResultTypes.FiducialResult target;
+
     /**
      * Updates the valid result based on what the limelight last saw. If it's valid, set the Pose3D
      * pose and debug telemetry. If it's not, send 'no pose' to telemetry.
@@ -96,8 +97,6 @@ public class Limelight {
             telemetryM.debug("pitch", pose.getOrientation().getPitch());
             telemetryM.debug("roll", pose.getOrientation().getRoll());
 
-            // camposetargspace z .75-2ish for shooting
-
             if (Math.abs(result.getTx()) < 4) {
                 telemetryM.debug("can shoot");
 
@@ -153,6 +152,6 @@ public class Limelight {
     //     } else {
     //         return null;
     //     }
-    //     // TODO! return pedropathing pose or null
+    //     // TODO: return pedropathing pose or null
     // }
 }

@@ -11,8 +11,8 @@ public class Layout {
     private Gamepad gamepad1;
     private Gamepad gamepad2;
 
-    // TODO: if we have a fancy control scheme, multiple modes etc.,
-    // ENCAPSULATE THAT HERE, don't stick that in Control or whatever
+    // TODO: if we have a fancy control scheme, multiple modes etc. ENCAPSULATE THAT HERE, don't
+    //  stick that in Control or whatever
 
     /**
      * Initialises the OpMode and gamepad objects.
@@ -24,8 +24,6 @@ public class Layout {
         gamepad1 = opMode.gamepad1;
         gamepad2 = opMode.gamepad2;
     }
-
-    // TODO: tune this, if necesssary, so it feels better
 
     /**
      * Controls driving the robot forward/back.
@@ -46,9 +44,7 @@ public class Layout {
     }
 
     /**
-     * Controls turning the robot. Use triggers for rotation, so right stick can be used for
-     * scoring/hanging, and so we don't have the awkwardness of the controls for two different
-     * things on one joystick.
+     * Controls turning the robot. Use triggers for rotation so controls are simpler.
      */
     public double driveYawAmount() {
         return gamepad1.left_trigger - gamepad1.right_trigger;

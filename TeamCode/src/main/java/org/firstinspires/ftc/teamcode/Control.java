@@ -38,14 +38,14 @@ public class Control {
         AUTO,
     }
 
-    // enabled once the robot mode has been started --- ie., don't do anything
+    // Enabled once the robot mode has been started --- ie., don't do anything
     // of import until then
     private boolean started = false;
 
-    // used in determining whether to run the tele or auto procedure
+    // Used in determining whether to run the tele or auto procedure
     private Mode mode;
 
-    // once the control hub stops the robot
+    // Once the control hub stops the robot
     private boolean stopped = false;
 
     private Colour colour;
@@ -81,7 +81,7 @@ public class Control {
     }
 
     /**
-     * enables stopped state, actual changes happen in Update schedule
+     * Enables stopped state, actual changes happen in Update schedule
      */
     public void stop() {
         stopped = true;
@@ -102,12 +102,12 @@ public class Control {
         if (started) {
             switch (mode) {
                 case TELE:
-                runTele();
-                break;
+                    runTele();
+                    break;
 
                 case AUTO:
-                runAuto();
-                break;
+                    runAuto();
+                    break;
             }
             if (mode == Mode.AUTO) {
                 runAuto();
@@ -132,17 +132,6 @@ public class Control {
         telemetryM.debug("driveForwardAmount", layout.driveForwardAmount());
         telemetryM.debug("driveStrafeAmount", layout.driveStrafeAmount());
         telemetryM.debug("driveYawAmount", layout.driveYawAmount());
-
-        // if (limelight.resultValid()) {
-        //     telemetryM.debug("pose", limelight.pose().toString());
-        //     opMode.telemetry.addData("pose", limelight.pose());
-        //     opMode.telemetry.addData("tx", limelight.getTx());
-        //     opMode.telemetry.addData("txnc", limelight.getTxNC());
-        //     opMode.telemetry.addData("ty", limelight.getTy());
-        //     opMode.telemetry.addData("tync", limelight.getTyNC());
-        // } else {
-        //     opMode.telemetry.addLine("no pose");
-        // }
 
         opMode.telemetry.addData("time: ", opMode.time);
 
@@ -169,6 +158,5 @@ public class Control {
         //     launch.run_flywheel();
         // }
         // launch.runGamepad();
-        
     }
 }
