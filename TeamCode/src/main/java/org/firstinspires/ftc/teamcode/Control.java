@@ -33,6 +33,11 @@ public class Control {
         BLUE,
     }
 
+    public enum Distance {
+        CLOSE,
+        FAR,
+    }
+
     public enum Mode {
         TELE,
         AUTO,
@@ -55,12 +60,13 @@ public class Control {
      *
      * @param opMode the OpMode object
      */
-    public Control(OpMode opMode, Mode mode, Colour colour) {
+    public Control(OpMode opMode, Mode mode, Distance distance, Colour colour) {
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
 
         this.opMode = opMode;
 
         this.mode = mode;
+        this.distance = distance;
         this.colour = colour;
 
         layout = new Layout(opMode);

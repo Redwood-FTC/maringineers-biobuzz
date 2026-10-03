@@ -5,18 +5,20 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import static org.firstinspires.ftc.teamcode.Control.Colour;
 import static org.firstinspires.ftc.teamcode.Control.Mode;
+import static org.firstinspires.ftc.teamcode.Control.Distance;
+
 /**
- * Manages the robot's autonomous.
+ * Manages the robot's Red Close autonomous.
  */
-@Autonomous(name = "Blue Autonomous", group = "Auto")
-public class BlueAutonomous extends OpMode {
+@Autonomous(name = "Red Close Autonomous", group = "Auto")
+public class RedCloseAutonomous extends OpMode {
     private Control control;
 
     /**
      * Initialises the control object.
      */
     public void init() {
-        control = new Control(this, Mode.AUTO, Colour.BLUE);
+        control = new Control(this, Mode.AUTO, Distance.CLOSE, Colour.RED);
     }
 
     /**

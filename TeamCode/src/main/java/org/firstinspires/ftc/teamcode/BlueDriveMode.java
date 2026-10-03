@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import static org.firstinspires.ftc.teamcode.Control.Colour;
+import static org.firstinspires.ftc.teamcode.Control.Distance;
 import static org.firstinspires.ftc.teamcode.Control.Mode;
 
 /**
@@ -18,7 +19,7 @@ public class BlueDriveMode extends OpMode {
     // if runInit is the run for init mode, and initrun is the init for
     // run mode, then initinit is the init for init mode
     public void init() {
-        control = new Control(this, Mode.TELE, Colour.BLUE);
+        control = new Control(this, Mode.TELE, Distance.FAR, Colour.BLUE); // FAR Distance is a placeholder
     }
 
     /**
