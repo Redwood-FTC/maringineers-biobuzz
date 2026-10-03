@@ -43,7 +43,7 @@ public class Control {
         AUTO,
     }
 
-    // Enabled once the robot mode has been started --- ie., don't do anything
+    // Enabled once the robot mode has been started --- i.e. don't do anything
     // of import until then
     private boolean started = false;
 
