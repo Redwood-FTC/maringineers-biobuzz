@@ -25,6 +25,7 @@ public class Control {
     private OpMode opMode;
     private Limelight limelight;
     private Pathing pathing;
+    private Launch launch;
 
     private TelemetryManager telemetryM;
 
@@ -75,6 +76,7 @@ public class Control {
         limelight = new Limelight(opMode, hardware, telemetryM);
         drive = new Drive(opMode, hardware, layout, limelight);
         pathing = new Pathing(opMode, hardware);
+        launch = new Launch(hardware.launchMotor, layout);
 
         update();
     }
@@ -91,11 +93,13 @@ public class Control {
      */
     public void stop() {
         stopped = true;
+        launch.stop();
     }
 
     // Schedule that continuously runs while the robot is stopped
     private void stopped() {
         drive.stopRobot();
+        launch.stop();
     }
 
     private void runAuto() {
@@ -105,7 +109,7 @@ public class Control {
      * Updates drive, telemetry, and the limelight.
      */
     public void update() {
-        if (started) {
+        if (started && !stopped) {
             switch (mode) {
                 case TELE:
                     runTele();
@@ -153,6 +157,7 @@ public class Control {
     private void runTele() {
         drive.gamepadDrive();
         pathing.update();
+        launch.runGamepad();
 
         // // specific buttons don't matter
         // if (layout.advance()) {

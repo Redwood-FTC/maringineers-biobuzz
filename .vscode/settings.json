@@ -1,0 +1,7 @@
+{
+    "java.import.gradle.enabled": true,
+    "java.gradle.buildServer.enabled": "off",
+    "java.jdt.ls.androidSupport.enabled": "on",
+    "java.server.launchMode": "Standard",
+    "java.configuration.updateBuildConfiguration": "automatic"
+}

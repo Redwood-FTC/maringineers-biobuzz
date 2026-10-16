@@ -49,4 +49,13 @@ public class Layout {
     public double driveYawAmount() {
         return gamepad1.left_trigger - gamepad1.right_trigger;
     }
+
+    /**
+     * Runs the launch motor.
+     *
+     * @return whether or not right bumper is pressed
+     */
+    public boolean launch() {
+        return gamepad1.right_bumper;
+    }
 }
