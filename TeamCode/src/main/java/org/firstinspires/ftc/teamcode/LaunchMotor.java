@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.layout.Layout;
 
 @TeleOp(name = "Launch Motor", group = "Test")
-public class launchmotor extends OpMode {
+public class LaunchMotor extends OpMode {
     private DcMotorEx motor;
     private Launch launch;
 
