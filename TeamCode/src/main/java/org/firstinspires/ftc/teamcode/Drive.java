@@ -4,6 +4,7 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.layout.Layout;
 
@@ -54,6 +55,13 @@ public class Drive {
      */
     public void update() {
         // follower.update();
+    }
+
+    public void tel(Telemetry telemetry) {
+        telemetry.addData("Left front power", hardware.leftFrontDriveMotor.getPower());
+        telemetry.addData("Left rear power", hardware.leftRearDriveMotor.getPower());
+        telemetry.addData("Right front power", hardware.rightFrontDriveMotor.getPower());
+        telemetry.addData("Right rear power", hardware.rightRearDriveMotor.getPower());
     }
 
     /**

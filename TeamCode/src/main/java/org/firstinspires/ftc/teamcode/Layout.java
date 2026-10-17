@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.layout;
 
+import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
@@ -57,5 +58,14 @@ public class Layout {
      */
     public boolean launch() {
         return gamepad1.right_bumper;
+    }
+
+    public void tel(TelemetryManager telemetry) {
+        telemetry.debug("right stick x amount", gamepad1.right_stick_x);
+        telemetry.debug("right stick y amount", gamepad1.right_stick_y);
+        telemetry.debug("driveForwardAmount", driveForwardAmount());
+        telemetry.debug("driveStrafeAmount", driveStrafeAmount());
+        telemetry.debug("driveYawAmount", driveYawAmount());
+        telemetry.debug("Launch button", launch());
     }
 }

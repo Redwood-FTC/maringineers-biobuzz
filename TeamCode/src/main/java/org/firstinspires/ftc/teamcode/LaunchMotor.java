@@ -2,22 +2,23 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.layout.Layout;
 
 @TeleOp(name = "Launch Motor", group = "Test")
+<<<<<<< HEAD:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/LaunchMotor.java
 public class LaunchMotor extends OpMode {
     private DcMotorEx motor;
+=======
+public class launchmotor extends OpMode {
+    private Hardware hardware;
+>>>>>>> adeb5f8 (launch class):TeamCode/src/main/java/org/firstinspires/ftc/teamcode/launchmotor.java
     private Launch launch;
 
     @Override
     public void init() {
-        motor = hardwareMap.get(DcMotorEx.class, "launchMotor");
-        motor.setPower(0);
-        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        launch = new Launch(motor, new Layout(this));
+        hardware = new Hardware(this);
+        launch = new Launch(hardware.launchMotor, new Layout(this));
         launch.stop();
         telemetry.addLine("Hold gamepad 1 right bumper to launch at 50% velocity.");
     }
@@ -25,8 +26,7 @@ public class LaunchMotor extends OpMode {
     @Override
     public void loop() {
         launch.runGamepad();
-        telemetry.addData("Launcher velocity (ticks/s)", motor.getVelocity());
-        telemetry.addData("Launcher encoder position (ticks)", motor.getCurrentPosition());
+        launch.tel(telemetry);
     }
 
     @Override

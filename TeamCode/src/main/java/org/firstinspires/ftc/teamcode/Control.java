@@ -2,15 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
-import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.Pose;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.layout.Layout;
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 /**
  * Manage overall control of the robot during teleop, specifically wrt the intake and launch modes,
@@ -21,7 +15,6 @@ public class Control {
     private Layout layout;
     private Hardware hardware;
     private Drive drive;
-    private Tel tel;
     private OpMode opMode;
     private Limelight limelight;
     private Pathing pathing;
@@ -55,6 +48,7 @@ public class Control {
     private boolean stopped = false;
 
     private Colour colour;
+    private Distance distance;
 
     /**
      * Controls the robot's functions
@@ -72,7 +66,6 @@ public class Control {
 
         layout = new Layout(opMode);
         hardware = new Hardware(opMode);
-        tel = new Tel(opMode, hardware);
         limelight = new Limelight(opMode, hardware, telemetryM);
         drive = new Drive(opMode, hardware, layout, limelight);
         pathing = new Pathing(opMode, hardware);
@@ -119,36 +112,24 @@ public class Control {
                     runAuto();
                     break;
             }
-            if (mode == Mode.AUTO) {
-                runAuto();
-            } else {
-                runTele();
-            }
         }
 
         if (stopped) {
             stopped();
         }
 
-        opMode.telemetry.addLine("running");
-
-        // TODO: move to tel
-        // telemetryM.debug("position", follower.getPose());
-        // telemetryM.debug("velocity", follower.getVelocity());
-
-        telemetryM.debug("right stick x amount", opMode.gamepad1.right_stick_x);
-        telemetryM.debug("right stick y amount", opMode.gamepad1.right_stick_y);
-
-        telemetryM.debug("driveForwardAmount", layout.driveForwardAmount());
-        telemetryM.debug("driveStrafeAmount", layout.driveStrafeAmount());
-        telemetryM.debug("driveYawAmount", layout.driveYawAmount());
-
-        opMode.telemetry.addData("time: ", opMode.time);
-
-        telemetryM.update();
-        tel.update();
         limelight.update(colour);
         drive.update();
+
+        // Collect readings before sending them to the Driver Station and Panels.
+        opMode.telemetry.addData("Status", stopped ? "Stopped" : started ? "Running" : "Ready");
+        opMode.telemetry.addData("Time", opMode.time);
+        layout.tel(telemetryM);
+        drive.tel(opMode.telemetry);
+        launch.tel(opMode.telemetry);
+        limelight.tel();
+        opMode.telemetry.update();
+        telemetryM.update();
     }
 
     /**
@@ -158,16 +139,5 @@ public class Control {
         drive.gamepadDrive();
         pathing.update();
         launch.runGamepad();
-
-        // // specific buttons don't matter
-        // if (layout.advance()) {
-        //     // run advance servos
-        //     launch.run_advance();
-        // }
-        // if (layout.launch()) {
-        //     // run flywheel, just at a given power
-        //     launch.run_flywheel();
-        // }
-        // launch.runGamepad();
     }
 }
