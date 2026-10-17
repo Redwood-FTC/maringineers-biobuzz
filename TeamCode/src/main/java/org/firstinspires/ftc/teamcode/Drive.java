@@ -6,8 +6,9 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import java.util.Arrays;
 
-// file containing public interface for driving, primarily controls pedropathing
-// etc.
+/**
+ * Manages the robot's drive.
+ */
 public class Drive {
     private Hardware hardware;
     private OpMode opMode;
