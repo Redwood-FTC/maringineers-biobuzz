@@ -4,7 +4,6 @@ import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.layout.Layout;
 
 /**
  * Manage overall control of the robot during teleop, specifically wrt the intake and launch modes,
