@@ -31,4 +31,3 @@ public class LaunchMotor extends OpMode {
         }
     }
 }
-

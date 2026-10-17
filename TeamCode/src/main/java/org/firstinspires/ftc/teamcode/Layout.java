@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.layout;
+package org.firstinspires.ftc.teamcode;
 
 import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
