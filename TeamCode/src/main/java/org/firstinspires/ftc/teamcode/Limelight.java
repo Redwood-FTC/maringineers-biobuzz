@@ -35,10 +35,48 @@ public class Limelight {
         }
 
         validResult = result;
-        int targetId = colour == Colour.RED ? 24 : 20;
-        for (LLResultTypes.FiducialResult tag : result.getFiducialResults()) {
-            if (tag.getFiducialId() == targetId) {
-                target = tag;
+
+        // telemetryM.debug(
+        if (result.isValid()) {
+            opMode.telemetry.addLine("limelight found valid result");
+            // telemetryM.debug("pose", result.getBotpose().toString());
+            Pose3D pose = result.getBotpose();
+            Position pos = pose.getPosition();
+            // telemetryM.debug("pose", pose.toString());
+            // telemetryM.debug("theoretical distance from goal", Math.sqrt(Math.pow(pos.x, 2) + Math.pow(pos.y, 2)));
+            // telemetryM.debug("tx", result.getTx());
+            // telemetryM.debug("txnc", result.getTxNC());
+            // telemetryM.debug("ty", result.getTy());
+            // telemetryM.debug("tync", result.getTyNC());
+
+            // target = null;
+            for (int i = 0; i < result.getFiducialResults().size(); ++i) {
+                LLResultTypes.FiducialResult target = result.getFiducialResults().get(i);
+                // red 24, blue 20
+                // opMode.telemetry.addData("limelight colour: ", colour);
+                // opMode.telemetry.addData("found id: ", target.getFiducialId());
+                telemetryM.debug("");
+                telemetryM.debug("limelight colour: ", colour);
+                telemetryM.debug("found id: ", target.getFiducialId());
+                // TODO: rewrite to expect any of four apriltags
+                // int id = colour == Colour.RED ? 24 : 20;
+                // if (target.getFiducialId() != id) {
+                //     // telemetryM.debug("found non-target apriltag");
+                //     continue;
+                // }
+                if (target.getFiducialId() < this.target.getFiducialId()) {
+                this.target = target;
+                }
+                opMode.telemetry.addLine("found apriltag");
+                telemetryM.debug("skew: ", target.getSkew());
+                telemetryM.debug("cameraPoseTargetSpace: ", target.getCameraPoseTargetSpace());
+                telemetryM.debug("robotPoseTargetSpace: ", target.getRobotPoseTargetSpace());
+                telemetryM.debug("targetPoseCameraSpace: ", target.getTargetPoseCameraSpace());
+                telemetryM.debug("targetPoseRobotSpace: ", target.getTargetPoseRobotSpace());
+                telemetryM.debug("targetXDegrees: ", target.getTargetXDegrees());
+                telemetryM.debug("targetYDegrees: ", target.getTargetYDegrees());
+                telemetryM.debug("targetXDegreesNoCrosshair: ", target.getTargetXDegreesNoCrosshair());
+                telemetryM.debug("targetYDegreesNoCrosshair: ", target.getTargetYDegreesNoCrosshair());
             }
         }
     }
@@ -70,6 +108,27 @@ public class Limelight {
             telemetryM.debug("targetYDegrees", target.getTargetYDegrees());
             telemetryM.debug("targetXDegreesNoCrosshair", target.getTargetXDegreesNoCrosshair());
             telemetryM.debug("targetYDegreesNoCrosshair", target.getTargetYDegreesNoCrosshair());
+        //     // camposetargspace z .75-2ish for shooting
+
+        //     if (Math.abs(result.getTx()) < 4) {
+        //         telemetryM.debug("can shoot");
+
+        //         // if we're close, use one range
+        //         // if we're far, use another
+
+        //         // TODO: get the led working
+        //         // hardwhare.canShootLed.setState(false);
+        //         // hardware.canShootLedServo.setPower(0);
+        //         // hardware.canShootLedServo.setPosition(1.0);
+        //     } else {
+        //         telemetryM.debug("can't shoot");
+        //         // hardware.canShootLed.setState(true);
+        //         // hardware.canShootLED.enable(false);
+        //         // hardware.canShootLedServo.setPower(0);
+        //         // hardware.canShootLedServo.setPosition(0.5);
+        //     }
+        // } else {
+        //     opMode.telemetry.addLine("no pose");
         }
     }
 
@@ -77,10 +136,28 @@ public class Limelight {
         return target.getTargetXDegrees();
     }
 
+    // NOTE: x is left/right from the target, z is back/foraward,
+    // y is up and down, for some reason
+
+    // x degrees is what we want, y degrees is up/down
+
+    public double targetDx() {
+        return target.getCameraPoseTargetSpace().getPosition().x;
+    }
+
+    public double targetDz() {
+        return target.getCameraPoseTargetSpace().getPosition().z;
+    }
+
     public boolean foundTarget() {
         return target != null;
     }
 
+    // TODO: getter for time current target acquired
+
+    // TODO: when replacing target, replace if newer, or if greater
+
+    // TODO: what does this even semanticaly mean again lol in contrast to the other one
     public boolean resultValid() {
         return validResult != null;
     }

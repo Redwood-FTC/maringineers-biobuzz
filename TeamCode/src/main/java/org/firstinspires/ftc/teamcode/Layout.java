@@ -26,6 +26,16 @@ public class Layout {
         gamepad2 = opMode.gamepad2;
     }
 
+    public boolean intake() {
+      return gamepad1.a;
+    }
+
+    public boolean tmpAim() {
+      return gamepad1.b;
+    }
+
+    // TODO: tune this, if necesssary, so it feels better
+
     /**
      * Controls driving the robot forward/back.
      *

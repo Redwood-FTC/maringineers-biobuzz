@@ -18,6 +18,7 @@ public class Control {
     private Limelight limelight;
     private Pathing pathing;
     private Launch launch;
+    private Intake intake;
 
     private TelemetryManager telemetryM;
 
@@ -69,6 +70,7 @@ public class Control {
         drive = new Drive(opMode, hardware, layout, limelight);
         pathing = new Pathing(opMode, hardware);
         launch = new Launch(hardware.launchMotor, layout);
+        intake = new Intake(opMode, hardware, layout);
 
         update();
     }
@@ -136,6 +138,8 @@ public class Control {
      */
     private void runTele() {
         drive.gamepadDrive();
+        intake.runGamepad();
+
         pathing.update();
         launch.runGamepad();
     }

@@ -13,6 +13,7 @@ public class Launch {
     public Launch(DcMotorEx motor, Layout layout) {
         this.motor = motor;
         this.layout = layout;
+
         speed = 0.5 * motor.getMotorType().getMaxRPM()
                 * motor.getMotorType().getTicksPerRev() / 60.0;
     }

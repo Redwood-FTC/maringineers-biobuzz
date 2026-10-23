@@ -26,6 +26,8 @@ public class Hardware {
     public DcMotorEx rightRearDriveMotor;
     public DcMotorEx launchMotor;
 
+    public DcMotorEx intakeMotor;
+
     public Limelight3A limelight;
 
     /**
@@ -84,9 +86,12 @@ public class Hardware {
         rightRearDriveMotor = opMode.hardwareMap.get(DcMotorEx.class, "rightRearDriveMotor");
         launchMotor = opMode.hardwareMap.get(DcMotorEx.class, "launchMotor");
 
+        intakeMotor = opMode.hardwareMap.get(DcMotorEx.class, "intakeMotor");
+
         // each side is flipped in comparison to the other, so set the right side to reverse
         // TODO: determine what we want for this
-        for (DcMotorEx motor : new DcMotorEx[]{rightRearDriveMotor, rightFrontDriveMotor, leftFrontDriveMotor}) {
+        for (DcMotorEx motor : new DcMotorEx[]{rightRearDriveMotor, rightFrontDriveMotor,
+            leftFrontDriveMotor, intakeMotor}) {
             motor.setDirection(DcMotorSimple.Direction.FORWARD);
         }
         for (DcMotorEx motor : new DcMotorEx[]{leftRearDriveMotor}) {
@@ -94,7 +99,7 @@ public class Hardware {
         }
 
         for (DcMotorEx motor : new DcMotorEx[]{leftFrontDriveMotor, leftRearDriveMotor, rightFrontDriveMotor,
-                rightRearDriveMotor}) {
+                rightRearDriveMotor, intakeMotor}) {
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
         for (DcMotorEx motor : new DcMotorEx[]{}) {
@@ -105,7 +110,7 @@ public class Hardware {
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
         for (DcMotorEx motor : new DcMotorEx[]{leftFrontDriveMotor, leftRearDriveMotor,
-                rightFrontDriveMotor, rightRearDriveMotor}) {
+                rightFrontDriveMotor, rightRearDriveMotor, intakeMotor}) {
             motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
         for (DcMotorEx motor : new DcMotorEx[]{}) {

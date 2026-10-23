@@ -71,36 +71,80 @@ public class Drive {
 
     private boolean aimed = false;
 
-    public boolean aimTarget(boolean red) {
-        opMode.telemetry.addLine("aiming");
-        if (aimed) {
-            return true;
-        }
+    private double dx;
+    private double dz;
 
-        // get tx from limelight, 10 means tilt with .15(?), |tx|<5 means
-        // we're on target
+    // TODO: write initial procedure for this
+
+    public boolean aimTarget() {
+
         if (!limelight.foundTarget()) {
-            opMode.telemetry.addLine("couldn't find target, turning until found");
-            moveRobot(0, 0, -.15 * (red ? -1 : 1));
-            aimed = false;
-        } else {
-            opMode.telemetry.addLine("found target");
-            double angle = limelight.angle_from_target();
-            if (angle > 2) {
-                opMode.telemetry.addLine("moving right");
-                moveRobot(0, 0, .15);
-                aimed = false;
-            } else if (angle < -2) {
-                opMode.telemetry.addLine("moving left");
-                moveRobot(0, 0, -.15);
-                aimed = false;
-            } else {
-                opMode.telemetry.addLine("aimed at target");
-                aimed = true;
-            }
+            return;
         }
 
-        return aimed;
+        // if (Math.abs(limelight.targetDx()))
+
+        double x = 0;
+        double y = 0;
+        double yaw = 0;
+
+        // if (limelight.targetDx() > 0) {
+        //     y = -.3;
+        // } else {
+        //     y = .3;
+        // }
+
+        double theta = limelight.angle_from_target();
+
+        // if (theta > 0) {
+        //     x = Math.cos((theta * Math.PI / 180));
+        //     y = Math.sin((theta * Math.PI / 180));
+        //     // yaw = .3;
+        // } else {
+        //     // yaw = -.3;
+        // }
+        x = .3 * Math.cos((theta * Math.PI / 180));
+        y = .3 * Math.sin((theta * Math.PI / 180));
+
+        opMode.telemetry.addData("theta: ", theta);
+        opMode.telemetry.addData("theta rad: ", theta * Math.PI / 180);
+        opMode.telemetry.addData("x power: ", x);
+        opMode.telemetry.addData("y power: ", y);
+
+        // x is forward/backward, y is left/right
+        moveRobot(x, y, yaw);
+
+        return false;
+
+        // opMode.telemetry.addLine("aiming");
+        // if (aimed) {
+        //     return true;
+        // }
+
+        // // get tx from limelight, 10 means tilt with .15(?), |tx|<5 means
+        // // we're on target
+        // if (!limelight.foundTarget()) {
+        //     opMode.telemetry.addLine("couldn't find target, turning until found");
+        //     moveRobot(0, 0, -.15 * (red ? -1 : 1));
+        //     aimed = false;
+        // } else {
+        //     opMode.telemetry.addLine("found target");
+        //     double angle = limelight.angle_from_target();
+        //     if (angle > 2) {
+        //         opMode.telemetry.addLine("moving right");
+        //         moveRobot(0, 0, .15);
+        //         aimed = false;
+        //     } else if (angle < -2) {
+        //         opMode.telemetry.addLine("moving left");
+        //         moveRobot(0, 0, -.15);
+        //         aimed = false;
+        //     } else {
+        //         opMode.telemetry.addLine("aimed at target");
+        //         aimed = true;
+        //     }
+        // }
+
+        // return aimed;
     }
 
     /**
@@ -120,9 +164,14 @@ public class Drive {
         // TODO: test robot vs field centric
         // follower.setTeleOpDrive(layout.driveForwardAmount() * swapFront * drivePower,
         //   layout.driveStrafeAmount() * swapFront * drivePower, layout.driveYawAmount() * drivePower, true);
+
+        if (layout.tmpAim()) {
+            aimTarget();
+        } else {
         moveRobot(layout.driveForwardAmount(),
                 layout.driveStrafeAmount(),
                 -layout.driveYawAmount());
+        }
     }
 
     private double driveAwayTimeStarted = -1;
