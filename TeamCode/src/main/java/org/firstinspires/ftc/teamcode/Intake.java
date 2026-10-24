@@ -1,13 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.layout.Layout;
-
-import java.util.Arrays;
 
 // file containing public interface for driving, primarily controls pedropathing
 // etc.
