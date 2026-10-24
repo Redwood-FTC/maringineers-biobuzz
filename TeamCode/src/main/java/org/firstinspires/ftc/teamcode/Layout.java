@@ -64,10 +64,10 @@ public class Layout {
     /**
      * Runs the launch motor.
      *
-     * @return whether or not right bumper is pressed
+     * @return whether left bumper is pressed
      */
     public boolean launch() {
-        return gamepad1.right_bumper;
+        return gamepad1.left_bumper;
     }
 
     public void tel(TelemetryManager telemetry) {

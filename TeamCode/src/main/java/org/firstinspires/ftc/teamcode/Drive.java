@@ -79,7 +79,7 @@ public class Drive {
     public boolean aimTarget() {
 
         if (!limelight.foundTarget()) {
-//            return;
+            return false;
         }
 
         // if (Math.abs(limelight.targetDx()))
