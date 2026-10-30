@@ -48,7 +48,7 @@ public class Drive {
     }
 
     /**
-     * Updates the follower
+    * Updates the follower
      */
     public void update() {
         // follower.update();
