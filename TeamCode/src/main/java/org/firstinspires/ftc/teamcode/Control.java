@@ -16,7 +16,6 @@ public class Control {
     private Drive drive;
     private OpMode opMode;
     private Limelight limelight;
-    private Pathing pathing;
     private Launch launch;
     private Intake intake;
 
@@ -68,7 +67,6 @@ public class Control {
         hardware = new Hardware(opMode);
         limelight = new Limelight(opMode, hardware, telemetryM);
         drive = new Drive(opMode, hardware, layout, limelight);
-        pathing = new Pathing(opMode, hardware);
         launch = new Launch(hardware.launchMotor, layout);
         intake = new Intake(opMode, hardware, layout);
 
@@ -142,7 +140,6 @@ public class Control {
         drive.gamepadDrive();
         intake.runGamepad();
 
-        pathing.update();
         launch.runGamepad();
     }
 }

@@ -12,6 +12,8 @@ public class Launch {
     private final Layout layout;
     private double speed = -0.4;
     private double targetSpeed;
+    private boolean toggledOn = false;
+    private boolean lastLaunchPressed = false;
 
     /**
      * Initialises the launch motor
@@ -26,7 +28,7 @@ public class Launch {
     }
 
     /**
-     * Updates the robot speed
+     * Updates the launch motor speed
      */
     private void updateSpeed() {
         targetSpeed = speed * motor.getMotorType().getMaxRPM()
@@ -39,11 +41,24 @@ public class Launch {
     public void runGamepad() {
         if (layout.increaseLaunchSpeed()) {
             speed += .02;
+            if (toggledOn) {
+                updateSpeed();
+            }
         } else if (layout.decreaseLaunchSpeed()) {
             speed -= .02;
+            if (toggledOn) {
+                updateSpeed();
+            }
         }
 
-        if (layout.launch()) {
+        boolean currentLaunchPressed = layout.launch();
+
+        if (currentLaunchPressed && !lastLaunchPressed) {
+            toggledOn = !toggledOn;
+        }
+        lastLaunchPressed = currentLaunchPressed;
+
+        if (toggledOn) {
             updateSpeed();
         } else {
             targetSpeed = 0;
@@ -55,6 +70,8 @@ public class Launch {
      * Stops the launch motor
      */
     public void stop() {
+        toggledOn = false;
+        lastLaunchPressed = false;
         targetSpeed = 0;
         motor.setVelocity(0);
         motor.setPower(0);
@@ -65,6 +82,7 @@ public class Launch {
      * @param telemetry the telemetry object from the Telemetry class
      */
     public void tel(Telemetry telemetry) {
+        telemetry.addData("Launch toggled on", toggledOn);
         telemetry.addData("Launch speed", speed);
         telemetry.addData("Launch target (ticks/s)", targetSpeed);
         telemetry.addData("Launch actual (ticks/s)", motor.getVelocity());
