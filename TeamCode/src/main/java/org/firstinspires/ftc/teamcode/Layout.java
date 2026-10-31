@@ -47,7 +47,6 @@ public class Layout {
 
     /**
      * Controls strafing the robot.
-     *
      * @return how far lef/right
      */
     public double driveStrafeAmount() {
@@ -63,8 +62,7 @@ public class Layout {
 
     /**
      * Runs the launch motor.
-     *
-     * @return whether or not right bumper is pressed
+     * @return whether X is pressed
      */
     public boolean launch() {
       // TODO: this button is temporary/to be decided as we figure out our
@@ -73,6 +71,11 @@ public class Layout {
     }
 
     boolean increaseLaunchSpeedPressed = false;
+
+    /**
+     * Increases launch speed
+     * @return if launch speed should be increased
+     */
     public boolean increaseLaunchSpeed() {
       if (gamepad1.dpad_up && !increaseLaunchSpeedPressed) {
         increaseLaunchSpeedPressed = true;
@@ -84,6 +87,11 @@ public class Layout {
     }
 
     boolean decreaseLaunchSpeedPressed = false;
+
+    /**
+     * Decreases launch speed
+     * @return whether launch speed should be decreased
+     */
     public boolean decreaseLaunchSpeed() {
       if (gamepad1.dpad_down && !decreaseLaunchSpeedPressed) {
         decreaseLaunchSpeedPressed = true;
@@ -94,6 +102,10 @@ public class Layout {
       return false;
     }
 
+    /**
+     * Sends telemetry to the driver station
+     * @param telemetry object from the Telemetry class
+     */
     public void tel(TelemetryManager telemetry) {
         telemetry.debug("right stick x amount", gamepad1.right_stick_x);
         telemetry.debug("right stick y amount", gamepad1.right_stick_y);
