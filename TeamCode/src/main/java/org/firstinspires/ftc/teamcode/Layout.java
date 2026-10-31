@@ -42,7 +42,7 @@ public class Layout {
      * @return how far forward/back
      */
     public double driveForwardAmount() {
-        return -Math.pow(gamepad1.left_stick_y, 3);
+        return Math.pow(gamepad1.left_stick_y, 3);
     }
 
     /**
@@ -51,7 +51,7 @@ public class Layout {
      * @return how far lef/right
      */
     public double driveStrafeAmount() {
-        return -Math.pow(gamepad1.left_stick_x, 3);
+        return Math.pow(gamepad1.left_stick_x, 3);
     }
 
     /**
@@ -64,10 +64,34 @@ public class Layout {
     /**
      * Runs the launch motor.
      *
-     * @return whether left bumper is pressed
+     * @return whether or not right bumper is pressed
      */
     public boolean launch() {
-        return gamepad1.left_bumper;
+      // TODO: this button is temporary/to be decided as we figure out our
+      // actual layout
+        return gamepad1.x;
+    }
+
+    boolean increaseLaunchSpeedPressed = false;
+    public boolean increaseLaunchSpeed() {
+      if (gamepad1.dpad_up && !increaseLaunchSpeedPressed) {
+        increaseLaunchSpeedPressed = true;
+        return true;
+      } else if (!gamepad1.dpad_up && increaseLaunchSpeedPressed) {
+        increaseLaunchSpeedPressed = false;
+      }
+      return false;
+    }
+
+    boolean decreaseLaunchSpeedPressed = false;
+    public boolean decreaseLaunchSpeed() {
+      if (gamepad1.dpad_down && !decreaseLaunchSpeedPressed) {
+        decreaseLaunchSpeedPressed = true;
+        return true;
+      } else if (!gamepad1.dpad_down && decreaseLaunchSpeedPressed) {
+        decreaseLaunchSpeedPressed = false;
+      }
+      return false;
     }
 
     public void tel(TelemetryManager telemetry) {

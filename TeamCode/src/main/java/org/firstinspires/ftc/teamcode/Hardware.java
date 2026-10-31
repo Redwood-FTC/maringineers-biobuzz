@@ -99,7 +99,7 @@ public class Hardware {
         }
 
         for (DcMotorEx motor : new DcMotorEx[]{leftFrontDriveMotor, leftRearDriveMotor, rightFrontDriveMotor,
-                rightRearDriveMotor, intakeMotor}) {
+                rightRearDriveMotor, intakeMotor, launchMotor}) {
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
         for (DcMotorEx motor : new DcMotorEx[]{}) {
