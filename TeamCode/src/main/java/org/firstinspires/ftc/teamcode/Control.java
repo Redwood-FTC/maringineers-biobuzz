@@ -87,6 +87,7 @@ public class Control {
      */
     public void stop() {
         stopped = true;
+        drive.resetAuto();
         launch.stop();
     }
 

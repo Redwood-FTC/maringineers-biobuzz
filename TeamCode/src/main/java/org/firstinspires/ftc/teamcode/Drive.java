@@ -68,8 +68,14 @@ public class Drive {
      * Stops the robot
      */
     public void stopRobot() {
-        autoStartTime = -1;
         setPower(0, 0, 0, 0);
+    }
+
+    /**
+     * Resets autonomous state.
+     */
+    public void resetAuto() {
+        autoStartTime = -1;
     }
 
     private boolean aimed = false;
@@ -199,7 +205,7 @@ public class Drive {
                 switch (distance) {
                     case CLOSE:
                         if (elapsedTime < 1.5) {
-                            moveRobot(0, 0.5, 0);
+                            moveRobot(0, -0.5, 0);
                         } else {
                             stopRobot();
                         }
@@ -219,7 +225,7 @@ public class Drive {
                 switch (distance) {
                     case CLOSE:
                         if (elapsedTime < 1.5) {
-                            moveRobot(0, 0.5, 0);
+                            moveRobot(0, -0.5, 0);
                         } else {
                             stopRobot();
                         }
