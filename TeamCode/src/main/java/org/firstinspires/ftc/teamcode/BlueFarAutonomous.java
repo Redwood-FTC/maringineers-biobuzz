@@ -43,9 +43,9 @@ public class BlueFarAutonomous extends OpMode {
     }
 
     /**
-     * Does nothing yet.
+     * Stops control.
      */
     public void stop() {
-
+        control.stop();
     }
 }

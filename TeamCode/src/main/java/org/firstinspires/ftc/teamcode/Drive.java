@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import static org.firstinspires.ftc.teamcode.Control.Colour;
+import static org.firstinspires.ftc.teamcode.Control.Distance;
 
 import java.util.Arrays;
 
@@ -19,6 +21,7 @@ public class Drive {
 
     private int swapFront = -1;
     private double drivePower = 1;
+    private double autoStartTime = -1;
 
     /**
      * Declares OpMode, hardware, and layout, and sets the starting pose, updates it, and starts
@@ -65,8 +68,8 @@ public class Drive {
      * Stops the robot
      */
     public void stopRobot() {
+        autoStartTime = -1;
         setPower(0, 0, 0, 0);
-        // follower.setTeleOpDrive(0, 0, 0, true);
     }
 
     private boolean aimed = false;
@@ -174,37 +177,68 @@ public class Drive {
         }
     }
 
-    private double driveAwayTimeStarted = -1;
-
-    public boolean driveAway(boolean close) {
-        if (driveAwayTimeStarted == -1) {
-            driveAwayTimeStarted = opMode.time;
-        }
-        // opMode.telemetry.addData("driveAwayTimeStarted", driveAwayTimeStarted);
-        // opMode.telemetry.addData("time", opMode.time);
-
-        if (close) {
-            if (opMode.time - driveAwayTimeStarted > 2) {
-                return true;
-            }
-            moveRobot(-.3, 0, 0);
-        } else {
-            if (opMode.time - driveAwayTimeStarted > 3.5) {
-                return true;
-            }
-            moveRobot(.3, 0, 0);
+    /**
+     * Executes autonomous drive routine based on distance and alliance colour:
+     * - CLOSE (RED / BLUE): Move left for 1.5 seconds.
+     * - FAR (RED / BLUE): Drive forward for 5 seconds.
+     *
+     * So far all it does is park.
+     *
+     * @param distance CLOSE or FAR
+     * @param colour RED or BLUE
+     */
+    public void runAuto(Distance distance, Colour colour) {
+        if (autoStartTime == -1) {
+            autoStartTime = opMode.time;
         }
 
-        return false;
-        // if close, drive backwards, for 3 seconds
-        // if far, forward, .5s
-        // returns if finished
+        double elapsedTime = opMode.time - autoStartTime;
+
+        switch (colour) {
+            case RED:
+                switch (distance) {
+                    case CLOSE:
+                        if (elapsedTime < 1.5) {
+                            moveRobot(0, 0.5, 0);
+                        } else {
+                            stopRobot();
+                        }
+                        break;
+
+                    case FAR:
+                        if (elapsedTime < 5.0) {
+                            moveRobot(0.5, 0, 0);
+                        } else {
+                            stopRobot();
+                        }
+                        break;
+                }
+                break;
+
+            case BLUE:
+                switch (distance) {
+                    case CLOSE:
+                        if (elapsedTime < 1.5) {
+                            moveRobot(0, 0.5, 0);
+                        } else {
+                            stopRobot();
+                        }
+                        break;
+
+                    case FAR:
+                        if (elapsedTime < 5.0) {
+                            moveRobot(0.5, 0, 0);
+                        } else {
+                            stopRobot();
+                        }
+                        break;
+                }
+                break;
+        }
     }
 
     /**
-     * TODO: if this is really deprecated, we should get rid of its usages
-     * DEPRECATED -
-     * Moves the robot based on controller input.
+     * Moves the robot based on directional inputs.
      *
      * @param x   x-value, positive is forward
      * @param y   y-value, positive is strafe left
@@ -253,8 +287,6 @@ public class Drive {
     }
 
     /**
-     * TODO: if this is really deprecated, we should get rid of its usages
-     * DEPRECATED -
      * Controls the power each wheel has.
      *
      * @param leftFront  the left front wheel DCMotor object

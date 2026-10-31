@@ -97,7 +97,7 @@ public class Control {
     }
 
     private void runAuto() {
-
+        drive.runAuto(distance, colour);
     }
 
     /**

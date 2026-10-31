@@ -2,13 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-//import org.firstinspires.ftc.teamcode.layout.Layout;
-
-import java.util.Arrays;
-
-// file containing public interface for driving, primarily controls pedropathing
-// etc.
+// Manages the robot's intake
 public class Intake {
     private Hardware hardware;
     private OpMode opMode;

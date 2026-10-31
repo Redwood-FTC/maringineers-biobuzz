@@ -43,9 +43,9 @@ public class BlueCloseAutonomous extends OpMode {
     }
 
     /**
-     * Does nothing yet.
+     * Stops control.
      */
     public void stop() {
-
+        control.stop();
     }
 }
