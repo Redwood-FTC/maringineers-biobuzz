@@ -57,6 +57,10 @@ public class Drive {
         // follower.update();
     }
 
+    /**
+     * Sends telemetry to the driver station
+     * @param telemetry the telemetry object
+     */
     public void tel(Telemetry telemetry) {
         telemetry.addData("Left front power", hardware.leftFrontDriveMotor.getPower());
         telemetry.addData("Left rear power", hardware.leftRearDriveMotor.getPower());
@@ -84,7 +88,10 @@ public class Drive {
     private double dz;
 
     // TODO: write initial procedure for this
-
+    /**
+     * Aims at the target
+     * @return whether the target has been found
+     */
     public boolean aimTarget() {
 
         if (!limelight.foundTarget()) {
@@ -157,7 +164,7 @@ public class Drive {
     }
 
     /**
-     * Sets TeleOP drive
+     * Uses the gamepad input to control the wheels and drive.
      */
     public void gamepadDrive() {
         // currently deprecated, but leaving since making a double sided

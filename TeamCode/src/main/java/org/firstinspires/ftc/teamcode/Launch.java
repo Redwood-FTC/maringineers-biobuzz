@@ -14,8 +14,6 @@ public class Launch {
     private double speed = 0.4;
     private double targetSpeed;
     private double tmpSpeed = speed;
-    // private boolean toggledOn = false;
-    // private boolean lastLaunchPressed = false;
 
     /**
      * Initialises the launch motor
@@ -26,8 +24,6 @@ public class Launch {
         this.motor = motor;
         this.layout = layout;
         this.hardware = hardware;
-
-        // updateSpeed();
     }
 
     /**
@@ -50,17 +46,8 @@ public class Launch {
             // }
         } else if (layout.decreaseLaunchSpeed()) {
             speed -= .02;
-            // if (toggledOn) {
-                updateSpeed();
-            // }
+            updateSpeed();
         }
-
-        // boolean currentLaunchPressed = layout.launch();
-
-        // if (currentLaunchPressed && !lastLaunchPressed) {
-        //     toggledOn = !toggledOn;
-        // }
-        // lastLaunchPressed = currentLaunchPressed;
 
         if (layout.launch()) {
             updateSpeed();
@@ -78,8 +65,6 @@ public class Launch {
      * Stops the launch motor
      */
     public void stop() {
-        // toggledOn = false;
-        // lastLaunchPressed = false;
         targetSpeed = 0;
         tmpSpeed = 0;
         motor.setVelocity(0);

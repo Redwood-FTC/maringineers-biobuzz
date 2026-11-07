@@ -88,12 +88,17 @@ public class Control {
         stopped();
     }
 
-    // Schedule that continuously runs while the robot is stopped
+    /**
+     * Stops the robot and launch motor
+     */
     private void stopped() {
         drive.stopRobot();
         launch.stop();
     }
 
+    /**
+     * Runs the auto
+     */
     private void runAuto() {
         drive.runAuto(distance, colour);
     }

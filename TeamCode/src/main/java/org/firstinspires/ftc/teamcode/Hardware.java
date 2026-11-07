@@ -132,6 +132,9 @@ public class Hardware {
         }
     }
 
+    /**
+     * Stops power to the launch motor
+     */
     public void launchMotorSetStop() {
         launchMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         

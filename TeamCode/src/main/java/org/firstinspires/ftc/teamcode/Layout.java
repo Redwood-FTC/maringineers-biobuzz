@@ -60,9 +60,7 @@ public class Layout {
         return gamepad1.left_trigger - gamepad1.right_trigger;
     }
 
-    // TODO
-    // DO THE NEEDFUL REFACTOR OF SPECIFIC LOGIC
-
+    // TODO: DO THE NEEDFUL REFACTOR OF SPECIFIC LOGIC
 
     boolean launch = false;
     boolean launchPressed = false;

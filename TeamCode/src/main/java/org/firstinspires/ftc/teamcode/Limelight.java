@@ -10,6 +10,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.Position;
 
 import static org.firstinspires.ftc.teamcode.Control.Colour;
 
+/**
+ * Manages the limelight
+ */
 public class Limelight {
     private final OpMode opMode;
     private final Hardware hardware;
@@ -17,6 +20,12 @@ public class Limelight {
     private LLResult validResult;
     private LLResultTypes.FiducialResult target;
 
+    /**
+     * Initialises the limelight class
+     * @param opMode the opMode object
+     * @param hardware the hardware object
+     * @param telemetryM the telemetry object
+     */
     public Limelight(OpMode opMode, Hardware hardware, TelemetryManager telemetryM) {
         this.opMode = opMode;
         this.hardware = hardware;
@@ -25,6 +34,10 @@ public class Limelight {
         hardware.limelight.start();
     }
 
+    /**
+     * Updates what the limelight sees
+     * @param colour whether the robot is part of red or blue alliance
+     */
     public void update(Colour colour) {
         LLResult result = hardware.limelight.getLatestResult();
 
@@ -82,6 +95,9 @@ public class Limelight {
         }
     }
 
+    /**
+     * Sends telemetry to the driver station
+     */
     public void tel() {
         opMode.telemetry.addData("Limelight result valid", resultValid());
         opMode.telemetry.addData("Limelight target found", foundTarget());
@@ -133,6 +149,10 @@ public class Limelight {
         }
     }
 
+    /**
+     * Gets the x angle fromm the target
+     * @return the x angle from the target
+     */
     public double angle_from_target() {
         return target.getTargetXDegrees();
     }
@@ -142,14 +162,26 @@ public class Limelight {
 
     // x degrees is what we want, y degrees is up/down
 
+    /**
+     * Gets the target's x position
+     * @return target x position
+     */
     public double targetDx() {
         return target.getCameraPoseTargetSpace().getPosition().x;
     }
 
+    /**
+     * Gets the target's z position
+     * @return target z position
+     */
     public double targetDz() {
         return target.getCameraPoseTargetSpace().getPosition().z;
     }
 
+    /**
+     * Gets whether the target has been found
+     * @return whether the target is found
+     */
     public boolean foundTarget() {
         return target != null;
     }
@@ -159,10 +191,19 @@ public class Limelight {
     // TODO: when replacing target, replace if newer, or if greater
 
     // TODO: what does this even semanticaly mean again lol in contrast to the other one
+
+    /**
+     * Returns whether the limelight result is valid
+     * @return whether the result is valid
+     */
     public boolean resultValid() {
         return validResult != null;
     }
 
+    /**
+     * Gets a limelight result
+     * @return the limelight result
+     */
     public LLResult result() {
         return validResult;
     }
