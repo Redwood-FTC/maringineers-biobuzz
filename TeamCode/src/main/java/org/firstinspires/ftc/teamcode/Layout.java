@@ -6,18 +6,16 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
  * Manages the controller layout.
+ * If we have a fancy control scheme, multiple modes, etc., ENCAPSULATE
+ * THAT HERE, don't stick that in Control or whatever.
  */
 public class Layout {
     private OpMode opMode;
     private Gamepad gamepad1;
     private Gamepad gamepad2;
 
-    // TODO: if we have a fancy control scheme, multiple modes etc. ENCAPSULATE THAT HERE, don't
-    //  stick that in Control or whatever
-
     /**
      * Initialises the OpMode and gamepad objects.
-     *
      * @param opMode the OpMode object
      */
     public Layout(OpMode opMode) {
@@ -26,15 +24,23 @@ public class Layout {
         gamepad2 = opMode.gamepad2;
     }
 
+    /**
+     * Returns whether a on gamepad1 is pressed
+     * @return whether a on gamepad 1 is presssed
+     */
     public boolean intake() {
-      return gamepad1.a;
+        return gamepad1.a;
     }
 
+    /**
+     * Returns whether b on gamepad 1 is pressed
+     * @return whether b on gamepad 1 is pressed
+     */
     public boolean tmpAim() {
-      return gamepad1.b;
+        return gamepad1.b;
     }
 
-    // TODO: tune this, if necesssary, so it feels better
+    // TODO: tune this, if necessary so it feels better
 
     /**
      * Controls driving the robot forward/back.
@@ -69,15 +75,15 @@ public class Layout {
      * @return whether X is pressed
      */
     public boolean launch() {
-      // TODO: this button is temporary/to be decided as we figure out our
-      // actual layout
+        // TODO: this button is temporary/to be decided as we figure out our
+        // actual layout
 
-      if (gamepad1.x && !launchPressed) {
-        launch = !launch;
-        launchPressed = true;
-      } else if (!gamepad1.x && launchPressed) {
-        launchPressed = false;
-      }
+        if (gamepad1.x && !launchPressed) {
+            launch = !launch;
+            launchPressed = true;
+        } else if (!gamepad1.x && launchPressed) {
+            launchPressed = false;
+        }
 
       return launch;
     }
@@ -88,13 +94,11 @@ public class Layout {
      * @return if launch speed should be increased
      */
     public boolean increaseLaunchSpeed() {
-      if (gamepad1.dpad_up && !increaseLaunchSpeedPressed) {
-        increaseLaunchSpeedPressed = true;
-        return true;
-      } else if (!gamepad1.dpad_up && increaseLaunchSpeedPressed) {
-        increaseLaunchSpeedPressed = false;
-      }
-      return false;
+        if (gamepad1.dpad_up && !increaseLaunchSpeedPressed) {
+            increaseLaunchSpeedPressed = true;
+            return true;
+        }
+        return false;
     }
 
     boolean decreaseLaunchSpeedPressed = false;
@@ -103,14 +107,16 @@ public class Layout {
      * @return whether launch speed should be decreased
      */
     public boolean decreaseLaunchSpeed() {
-      if (gamepad1.dpad_down && !decreaseLaunchSpeedPressed) {
-        decreaseLaunchSpeedPressed = true;
-        return true;
-      } else if (!gamepad1.dpad_down && decreaseLaunchSpeedPressed) {
-        decreaseLaunchSpeedPressed = false;
-      }
-      return false;
+        if (gamepad1.dpad_down && !decreaseLaunchSpeedPressed) {
+            decreaseLaunchSpeedPressed = true;
+            return true;
+        }
+        return false;
     }
+
+//    public void update() {
+//
+//    }
 
     /**
      * Sends telemetry to the driver station
