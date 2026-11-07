@@ -12,8 +12,8 @@ public class Launch {
     private final Layout layout;
     private double speed = -0.4;
     private double targetSpeed;
-    private boolean toggledOn = false;
-    private boolean lastLaunchPressed = false;
+    // private boolean toggledOn = false;
+    // private boolean lastLaunchPressed = false;
 
     /**
      * Initialises the launch motor
@@ -41,24 +41,24 @@ public class Launch {
     public void runGamepad() {
         if (layout.increaseLaunchSpeed()) {
             speed += .02;
-            if (toggledOn) {
+            // if (toggledOn) {
                 updateSpeed();
-            }
+            // }
         } else if (layout.decreaseLaunchSpeed()) {
             speed -= .02;
-            if (toggledOn) {
+            // if (toggledOn) {
                 updateSpeed();
-            }
+            // }
         }
 
-        boolean currentLaunchPressed = layout.launch();
+        // boolean currentLaunchPressed = layout.launch();
 
-        if (currentLaunchPressed && !lastLaunchPressed) {
-            toggledOn = !toggledOn;
-        }
-        lastLaunchPressed = currentLaunchPressed;
+        // if (currentLaunchPressed && !lastLaunchPressed) {
+        //     toggledOn = !toggledOn;
+        // }
+        // lastLaunchPressed = currentLaunchPressed;
 
-        if (toggledOn) {
+        if (layout.launch()) {
             updateSpeed();
         } else {
             targetSpeed = 0;
@@ -70,8 +70,8 @@ public class Launch {
      * Stops the launch motor
      */
     public void stop() {
-        toggledOn = false;
-        lastLaunchPressed = false;
+        // toggledOn = false;
+        // lastLaunchPressed = false;
         targetSpeed = 0;
         motor.setVelocity(0);
         motor.setPower(0);

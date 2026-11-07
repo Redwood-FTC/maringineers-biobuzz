@@ -60,22 +60,34 @@ public class Layout {
         return gamepad1.left_trigger - gamepad1.right_trigger;
     }
 
+    // TODO
+    // DO THE NEEDFUL REFACTOR OF SPECIFIC LOGIC
+
     /**
      * Runs the launch motor.
      * @return whether X is pressed
      */
+    boolean launch = false;
+    boolean launchPressed = false;
     public boolean launch() {
       // TODO: this button is temporary/to be decided as we figure out our
       // actual layout
-        return gamepad1.x;
+
+      if (gamepad1.x && !launchPressed) {
+        launch = !launch;
+      } else if (!gamepad1.x && launchPressed) {
+        launchPressed = false;
+      }
+
+      return launch;
     }
 
-    boolean increaseLaunchSpeedPressed = false;
 
     /**
      * Increases launch speed
      * @return if launch speed should be increased
      */
+    boolean increaseLaunchSpeedPressed = false;
     public boolean increaseLaunchSpeed() {
       if (gamepad1.dpad_up && !increaseLaunchSpeedPressed) {
         increaseLaunchSpeedPressed = true;
@@ -86,12 +98,12 @@ public class Layout {
       return false;
     }
 
-    boolean decreaseLaunchSpeedPressed = false;
 
     /**
      * Decreases launch speed
      * @return whether launch speed should be decreased
      */
+    boolean decreaseLaunchSpeedPressed = false;
     public boolean decreaseLaunchSpeed() {
       if (gamepad1.dpad_down && !decreaseLaunchSpeedPressed) {
         decreaseLaunchSpeedPressed = true;
