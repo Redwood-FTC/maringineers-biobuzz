@@ -10,8 +10,10 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class Launch {
     private final DcMotorEx motor;
     private final Layout layout;
-    private double speed = -0.4;
+    private Hardware hardware;
+    private double speed = 0.4;
     private double targetSpeed;
+    private double tmpSpeed = speed;
     // private boolean toggledOn = false;
     // private boolean lastLaunchPressed = false;
 
@@ -20,9 +22,10 @@ public class Launch {
      * @param motor motor object
      * @param layout layout object
      */
-    public Launch(DcMotorEx motor, Layout layout) {
+    public Launch(DcMotorEx motor, Layout layout, Hardware hardware) {
         this.motor = motor;
         this.layout = layout;
+        this.hardware = hardware;
 
         // updateSpeed();
     }
@@ -33,6 +36,7 @@ public class Launch {
     private void updateSpeed() {
         targetSpeed = speed * motor.getMotorType().getMaxRPM()
                 * motor.getMotorType().getTicksPerRev() / 60.0;
+        tmpSpeed = speed;
     }
 
     /**
@@ -62,8 +66,12 @@ public class Launch {
             updateSpeed();
         } else {
             targetSpeed = 0;
+            tmpSpeed = 0;
         }
-        motor.setVelocity(targetSpeed);
+
+        // TODO, figure out details
+        // motor.setVelocity(targetSpeed);
+        motor.setPower(tmpSpeed);
     }
 
     /**
@@ -73,8 +81,10 @@ public class Launch {
         // toggledOn = false;
         // lastLaunchPressed = false;
         targetSpeed = 0;
+        tmpSpeed = 0;
         motor.setVelocity(0);
         motor.setPower(0);
+        hardware.launchMotorSetStop();
     }
 
     /**
@@ -82,9 +92,10 @@ public class Launch {
      * @param telemetry the telemetry object from the Telemetry class
      */
     public void tel(Telemetry telemetry) {
-        telemetry.addData("Launch toggled on", toggledOn);
+        // telemetry.addData("Launch toggled on", toggledOn);
         telemetry.addData("Launch speed", speed);
         telemetry.addData("Launch target (ticks/s)", targetSpeed);
+        telemetry.addData("Launch power (ticks/s)", tmpSpeed);
         telemetry.addData("Launch actual (ticks/s)", motor.getVelocity());
         telemetry.addData("Launch position (ticks)", motor.getCurrentPosition());
     }

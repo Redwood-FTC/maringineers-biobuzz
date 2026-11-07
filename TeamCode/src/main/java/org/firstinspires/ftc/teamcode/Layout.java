@@ -75,6 +75,7 @@ public class Layout {
 
       if (gamepad1.x && !launchPressed) {
         launch = !launch;
+        launchPressed = true;
       } else if (!gamepad1.x && launchPressed) {
         launchPressed = false;
       }

@@ -67,7 +67,7 @@ public class Control {
         hardware = new Hardware(opMode);
         limelight = new Limelight(opMode, hardware, telemetryM);
         drive = new Drive(opMode, hardware, layout, limelight);
-        launch = new Launch(hardware.launchMotor, layout);
+        launch = new Launch(hardware.launchMotor, layout, hardware);
         intake = new Intake(opMode, hardware, layout);
 
         update();
@@ -85,8 +85,7 @@ public class Control {
      */
     public void stop() {
         stopped = true;
-        drive.resetAuto();
-        launch.stop();
+        stopped();
     }
 
     // Schedule that continuously runs while the robot is stopped

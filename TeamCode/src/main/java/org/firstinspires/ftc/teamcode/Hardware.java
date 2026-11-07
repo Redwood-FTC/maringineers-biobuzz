@@ -99,10 +99,10 @@ public class Hardware {
         }
 
         for (DcMotorEx motor : new DcMotorEx[]{leftFrontDriveMotor, leftRearDriveMotor, rightFrontDriveMotor,
-                rightRearDriveMotor, intakeMotor, launchMotor}) {
+                rightRearDriveMotor, intakeMotor}) {
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
-        for (DcMotorEx motor : new DcMotorEx[]{}) {
+        for (DcMotorEx motor : new DcMotorEx[]{launchMotor}) {
             // temporary, for debugging position
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         }
@@ -130,5 +130,10 @@ public class Hardware {
             // temp, for debugging position
             // motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
+    }
+
+    public void launchMotorSetStop() {
+        launchMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        
     }
 }
