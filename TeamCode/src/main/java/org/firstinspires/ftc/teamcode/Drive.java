@@ -112,13 +112,14 @@ public class Drive {
 
         double theta = limelight.angle_from_target();
 
-        // if (theta > 0) {
-        //     x = Math.cos((theta * Math.PI / 180));
-        //     y = Math.sin((theta * Math.PI / 180));
-        //     // yaw = .3;
-        // } else {
-        //     // yaw = -.3;
-        // }
+        if (theta > 0) {
+            x = Math.cos((theta * Math.PI / 180));
+            y = Math.sin((theta * Math.PI / 180));
+            // yaw = .3;
+        } else {
+            // yaw = -.3;
+        }
+
         x = .3 * Math.cos((theta * Math.PI / 180));
         y = .3 * Math.sin((theta * Math.PI / 180));
 
@@ -128,7 +129,8 @@ public class Drive {
         opMode.telemetry.addData("y power: ", y);
 
         // x is forward/backward, y is left/right
-        moveRobot(x, y, yaw);
+        // moveRobot(x, y, yaw);
+        moveRobot(0, 0, yaw);
 
         return false;
 

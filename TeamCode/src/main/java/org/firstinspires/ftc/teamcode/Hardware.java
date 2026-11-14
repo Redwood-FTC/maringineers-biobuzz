@@ -24,9 +24,12 @@ public class Hardware {
     public DcMotorEx leftRearDriveMotor;
     public DcMotorEx rightFrontDriveMotor;
     public DcMotorEx rightRearDriveMotor;
-    public DcMotorEx launchMotor;
 
+    public DcMotorEx launchMotor;
     public DcMotorEx intakeMotor;
+
+    public CRServo leftBeltServo;
+    public CRServo rightBeltServo;
 
     public Limelight3A limelight;
 
@@ -61,9 +64,14 @@ public class Hardware {
      * Initialises the servos.
      */
     private void initServos() {
-        // intakeServo = opMode.hardwareMap.get(Servo.class, "intakeServo");
-        // canShootLedServo = opMode.hardwareMap.get(CRServo.class, "canShootLedServo");
-        for (CRServo servo : new CRServo[]{}) {
+        leftBeltServo = opMode.hardwareMap.get(CRServo.class, "leftBeltServo");
+        rightBeltServo = opMode.hardwareMap.get(CRServo.class, "rightBeltServo");
+
+        for (CRServo servo : new CRServo[]{rightBeltServo}) {
+            servo.setDirection(CRServo.Direction.REVERSE);
+        }
+
+        for (CRServo servo : new CRServo[]{leftBeltServo}) {
             servo.setDirection(CRServo.Direction.FORWARD);
         }
     }

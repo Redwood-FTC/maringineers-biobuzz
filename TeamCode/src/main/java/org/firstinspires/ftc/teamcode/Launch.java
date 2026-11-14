@@ -11,7 +11,7 @@ public class Launch {
     private final DcMotorEx motor;
     private final Layout layout;
     private Hardware hardware;
-    private double speed = 0.4;
+    private double speed = -0.4;
     private double targetSpeed;
     private double tmpSpeed = speed;
 
@@ -49,6 +49,12 @@ public class Launch {
             updateSpeed();
         }
 
+        // boolean currentLaunchPressed = layout.launch();
+
+        // if (currentLaunchPressed && !lastLaunchPressed) {
+        //     toggledOn = !toggledOn;
+        // }
+        // lastLaunchPressed = currentLaunchPressed;
         if (layout.launch()) {
             updateSpeed();
         } else {

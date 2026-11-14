@@ -31,5 +31,13 @@ public class Intake {
       } else {
         hardware.intakeMotor.setPower(0);
       }
+
+      if (layout.belt()) {
+        hardware.leftBeltServo.setPower(1);
+        hardware.rightBeltServo.setPower(1);
+      } else {
+        hardware.leftBeltServo.setPower(0);
+        hardware.rightBeltServo.setPower(0);
+      }
     }
 }
