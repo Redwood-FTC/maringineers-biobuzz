@@ -70,8 +70,7 @@ public class Layout {
       return gamepad1.y;
     }
 
-    // TODO
-    // DO THE NEEDFUL REFACTOR OF SPECIFIC LOGIC
+    // TODO: DO THE NEEDFUL REFACTOR OF SPECIFIC LOGIC
 
     boolean launch = false;
     boolean launchPressed = false;
@@ -93,11 +92,11 @@ public class Layout {
       return launch;
     }
 
+    boolean increaseLaunchSpeedPressed = false;
     /**
      * Increases launch speed
      * @return if launch speed should be increased
      */
-    boolean increaseLaunchSpeedPressed = false;
     public boolean increaseLaunchSpeed() {
         if (gamepad1.dpad_up && !increaseLaunchSpeedPressed) {
             increaseLaunchSpeedPressed = true;
@@ -108,11 +107,11 @@ public class Layout {
         return false;
     }
 
+    boolean decreaseLaunchSpeedPressed = false;
     /**
      * Decreases launch speed
      * @return whether launch speed should be decreased
      */
-    boolean decreaseLaunchSpeedPressed = false;
     public boolean decreaseLaunchSpeed() {
         if (gamepad1.dpad_down && !decreaseLaunchSpeedPressed) {
             decreaseLaunchSpeedPressed = true;
@@ -122,10 +121,6 @@ public class Layout {
         }
         return false;
     }
-
-//    public void update() {
-//
-//    }
 
     /**
      * Sends telemetry to the driver station

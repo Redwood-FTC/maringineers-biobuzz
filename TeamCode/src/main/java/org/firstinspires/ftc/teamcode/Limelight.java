@@ -190,7 +190,7 @@ public class Limelight {
 
     // TODO: when replacing target, replace if newer, or if greater
 
-    // TODO: what does this even semanticaly mean again lol in contrast to the other one
+    // TODO: what does this even semantically mean again in contrast to the other one
 
     /**
      * Returns whether the limelight result is valid
