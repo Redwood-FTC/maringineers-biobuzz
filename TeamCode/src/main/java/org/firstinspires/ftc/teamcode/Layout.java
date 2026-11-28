@@ -79,17 +79,13 @@ public class Layout {
      * @return whether X is pressed
      */
     public boolean launch() {
-        // TODO: this button is temporary/to be decided as we figure out our
-        // actual layout
-
         if (gamepad1.x && !launchPressed) {
             launch = !launch;
             launchPressed = true;
         } else if (!gamepad1.x && launchPressed) {
             launchPressed = false;
         }
-
-      return launch;
+        return launch;
     }
 
     boolean increaseLaunchSpeedPressed = false;
